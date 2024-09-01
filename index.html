@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="same">
+
+        <title>CV Builder</title>
+
+        <!-- OPEN GRAPH -->
+        <meta property="og:title" content="CV Builder">
+        <meta property="og:description" content="same">
+        <meta property="og:image" content="">
+        <meta property="og:image:alt" content="">
+
+        <link rel="alternate" href="https://" hreflang="es-AR">
+        <link rel="canonical" href="https://">
+
+        <meta name="robots" content="index, follow">
+        <meta name="theme-color" content="#0fe">
+
+        <link rel="icon" type="image/jpg" href="">
+
+        <!-- <link rel="stylesheet" href="css/reset.css"> -->
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <aside class="sidebar">
+                <header>
+                    <h1>CV Builder</h1>
+                </header>
+
+                <form id="cv-form">
+                    <section>
+                        <h2 class="personalInformation-title">Personal Information</h2>
+
+                        <label for="name"><span></span>:
+                            <input type="text" name="name" required>
+                        </label>
+
+                        <label for="email"><span></span>:
+                            <input type="email" name="email" required>
+                        </label>
+
+                        <label for="phone"><span></span>:
+                            <input type="tel" name="phone" required>
+                        </label>
+
+                        <label for="address"><span></span>:
+                            <input type="text" name="address" required>
+                        </label>
+
+                        <label for="picture"><span></span>:
+                            <input type="file" name="picture" accept="image/*">
+                        </label>
+                    </section>
+
+                    <section>
+                        <h2 class="professionalSummary-title">Professional Summary</h2>
+
+                        <label for="summary"><span></span>:
+                            <textarea name="summary" rows="4" required></textarea>
+                        </label>
+                    </section>
+
+                    <section>
+                        <h2 class="experience-title">Experience</h2>
+
+                        <div id="experience-section">
+                            <div class="experience-item">
+                                <label for="job-title[]"><span></span>:
+                                    <input type="text" name="job-title[]" required>
+                                </label>
+
+                                <label for="company[]"><span></span>:
+                                    <input type="text" name="company[]" required>
+                                </label>
+
+                                <label for="job-dates[]"><span></span>:
+                                    <input type="text" name="job-dates[]" required>
+                                </label>
+
+                                <label for="job-description[]"><span></span>:
+                                    <textarea name="job-description[]" rows="2"></textarea>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="button" id="add-experience">Add Experience</button>
+                    </section>
+
+                    <section>
+                        <h2 class="education-title">Education</h2>
+
+                        <div id="education-section">
+                            <div class="education-item">
+                                <label for="degree[]"><span></span>:
+                                    <input type="text" name="degree[]" required>
+                                </label>
+
+                                <label for="institution[]"><span></span>:
+                                    <input type="text" name="institution[]" required>
+                                </label>
+
+                                <label for="edu-dates[]"><span></span>:
+                                    <input type="text" name="edu-dates[]" required>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="button" id="add-education">Add Education</button>
+                    </section>
+
+                    <section hidden>
+                        <h2 class="customizationTitle">Customization</h2>
+
+                        <label for="theme-choice"><span></span>:
+                            <input list="theme" name="theme-choice">
+                        </label>
+
+                        <datalist id="theme">
+                            <option value="theme1"></option>
+                            <option value="theme2"></option>
+                            <option value="theme3"></option>
+                        </datalist>
+                    </section>
+
+                    <!-- <button hidden>Generate CV</button> -->
+                </form>
+            </aside>
+
+            <main class="preview">
+                <header>
+                    <h2 class="previewTitle">CV Preview</h2>
+                </header>
+
+                <section id="cv-preview">
+                    <!-- CV preview will be generated here -->
+                </section>
+
+                <section id="preview-experience">
+                    <!-- Experience preview will be generated here -->
+                </section>
+
+                <section id="preview-education">
+                    <!-- Education preview will be generated here -->
+                </section>
+
+                <button id="export-pdf" hidden>Export to PDF</button>
+            </main>
+        </div>
+
+        <script src="js/main.js" type="module"></script>
+        <script src="js/formHandler.js" type="module"></script>
+        <!-- <script src="js/pdfExporter.js"></script> -->
+    </body>
+
+</html>

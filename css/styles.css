@@ -66,7 +66,6 @@ button {
     overflow-y: auto;
 }
 
-
 .preview {
     width: 70%;
     padding: 20px;
@@ -79,4 +78,66 @@ button {
     border-radius: 50%;
     /* Hace que la imagen sea circular */
     margin-bottom: 20px;
+}
+
+/* Estilos generales para el contenedor principal */
+.preview {
+    font-family: Arial, sans-serif;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Estilos para el título de la previsualización */
+.previewTitle {
+    font-size: 2em;
+    color: #003d66;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el selector de idioma */
+.language-selector {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#languageSelect {
+    padding: 5px;
+    font-size: 16px;
+}
+
+/* Estilos para el contenedor de la previsualización */
+.cv-preview-container {
+    max-height: 80vh;
+    /* Ajusta la altura máxima según sea necesario */
+    overflow-y: auto;
+    /* Permite el scroll vertical dentro del artículo */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el botón de exportación a PDF */
+#export-pdf {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#export-pdf:hover {
+    background-color: #0056b3;
 }

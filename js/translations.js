@@ -50,6 +50,30 @@ const translations = {
         chooseATheme: "Elige un tema",
         previewTitle: "Vista Previa del CV",
     },
+    fr: {
+        title: "Créateur de CV",
+        personalInfo: "Informations Personnelles",
+        name: "Nom",
+        email: "Email",
+        phone: "Téléphone",
+        address: "Adresse",
+        picture: "Photo de Profil",
+        professionalSummary: "Résumé Professionnel",
+        summary: "Résumé",
+        experience: "Expérience",
+        jobTitle: "Intitulé du Poste",
+        company: "Entreprise",
+        dates: "Dates",
+        description: "Description",
+        addExperience: "Ajouter une Expérience",
+        education: "Éducation",
+        degree: "Diplôme",
+        institution: "Institution",
+        addEducation: "Ajouter une Éducation",
+        customization: "Personnalisation",
+        chooseATheme: "Choisissez un thème",
+        previewTitle: "Aperçu du CV"
+    },
     pt: {
         title: "Criador de CV",
         personalInfo: "Informações Pessoais",
@@ -76,18 +100,10 @@ const translations = {
     }
 }
 
-function getBrowserLanguage() {
-    const language = navigator.language || navigator.userLanguage
+export function translatePage(selectedLang) {
+    const lang = selectedLang || navigator.language
 
-    // Devuelve solo las dos primeras letras del código de idioma, por ejemplo, "en" o "es"
-    return language.split('-')[0]
-}
-
-export function translatePage() {
-    const language = getBrowserLanguage()
-
-    //    const texts = translations[language] || translations["en"] // Fallback al inglés si el idioma no está soportado
-    const texts = translations['pt'] || translations["en"] // Fallback al inglés si el idioma no está soportado
+    const texts = translations[lang] || translations["en"] // Fallback al inglés si el idioma no está soportado
 
     $("h1").textContent = texts.title
     $('h2.personalInformation-title').textContent = texts.personalInfo
@@ -99,17 +115,39 @@ export function translatePage() {
     $('h2.professionalSummary-title').textContent = texts.professionalSummary
     $('label[for="summary"] span').textContent = texts.summary
     $('h2.experience-title').textContent = texts.experience
-    $('label[for="job-title[]"] span').textContent = texts.jobTitle
-    $('label[for="company[]"] span').textContent = texts.company
-    $('label[for="job-dates[]"] span').textContent = texts.dates
-    $('label[for="job-description[]"] span').textContent = texts.description
+    $$('label[for="job-title[]"] span').forEach(el => {
+        el.textContent = texts.jobTitle
+    })
+    $$('label[for="company[]"] span').forEach(el => {
+        el.textContent = texts.company
+    })
+    $$('label[for="job-dates[]"] span').forEach(el => {
+        el.textContent = texts.dates
+    })
+    $$('label[for="job-description[]"] span').forEach(el => {
+        el.textContent = texts.description
+    })
+    $$('span.experience-subtitle').forEach(el => {
+        el.textContent = texts.experience
+    })
     $("#add-experience").textContent = texts.addExperience
     $('h2.education-title').textContent = texts.education
-    $('label[for="degree[]"] span').textContent = texts.degree
-    $('label[for="institution[]"] span').textContent = texts.institution
-    $('label[for="edu-dates[]"] span').textContent = texts.dates
+    $$('label[for="degree[]"] span').forEach(el => {
+        el.textContent = texts.degree
+    })
+    $$('label[for="institution[]"] span').forEach(el => {
+        el.textContent = texts.institution
+    })
+    $$('label[for="edu-dates[]"] span').forEach(el => {
+        el.textContent = texts.dates
+    })
+    $$('span.education-subtitle').forEach(el => {
+        el.textContent = texts.education
+    })
     $("#add-education").textContent = texts.addEducation
     $("h2.customizationTitle").textContent = texts.customization
     $('label[for="theme-choice"] span').textContent = texts.chooseATheme
     $("h2.previewTitle").textContent = texts.previewTitle
+    $('h3.experience-preview').textContent = texts.experience
+    $('h3.education-preview').textContent = texts.education
 }

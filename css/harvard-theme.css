@@ -1,0 +1,54 @@
+/* Estilos para el preview general del CV */
+#cv-preview {
+    margin-bottom: 20px;
+}
+
+#cv-preview h3 {
+    font-size: 2em;
+    color: #003d66;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Estilos para la sección de experiencia */
+#preview-experience {
+    margin-bottom: 20px;
+}
+
+#preview-experience h3 {
+    font-size: 1.5em;
+    color: #003d66;
+    border-bottom: 2px solid #003d66;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para la sección de educación */
+#preview-education {
+    margin-bottom: 20px;
+}
+
+#preview-education h3 {
+    font-size: 1.5em;
+    color: #003d66;
+    border-bottom: 2px solid #003d66;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+/* Estilos opcionales para elementos dentro de las secciones */
+#preview-experience .experience-list-item,
+#preview-education .education-list-item {
+    margin-bottom: 10px;
+}
+
+#preview-experience .experience-list-item h4,
+#preview-education .education-list-item h4 {
+    font-size: 1.2em;
+    color: #003d66;
+}
+
+#preview-experience .experience-list-item p,
+#preview-education .education-list-item p {
+    margin: 5px 0;
+}

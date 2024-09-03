@@ -1,20 +1,34 @@
 import { initializeFormHandlers, captureFormData } from './formHandler.js'
 import { translatePage } from './translations.js'
+import { saveFormData, restoreFormData } from './storage.js'
 
 const $ = el => document.querySelector(el)
 const $$ = el => document.querySelectorAll(el)
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Traducir contenido según idioma del navegador
-    translatePage()
-
     // Inicializa los manejadores de eventos del formulario
     initializeFormHandlers()
+
+    // Restaurar los datos cuando la página se carga
+    window.addEventListener('load', restoreFormData)
+
+    const languageSelect = $("#languageSelect")
+    // Escuchar cambios en el select de idioma
+    languageSelect.addEventListener("change", () => {
+        const selectedLanguage = languageSelect.value
+
+        // Guardar el idioma seleccionado en localStorage
+        localStorage.setItem("selectedLanguage", selectedLanguage)
+
+        // Traducir la página
+        translatePage(selectedLanguage)
+    })
 
     // Actualizar los datos del formulario cuando el usuario interactúa con el formulario
     $("#cv-form").addEventListener("input", () => {
         const data = captureFormData()
         updatePreview(data)
+        saveFormData()
     })
 })
 
@@ -27,10 +41,10 @@ export function updatePreview(data) {
     // Generar la vista previa del CV incluyendo la imagen si está disponible
     preview.innerHTML = `
         ${data.picture ? `<img src="${data.picture}" alt="Profile Photo" class="profile-photo">` : ''}
-        <h3>${data.name || "Name"}</h3>
-        <p>${data.email || "email@example.com"}</p>
-        <p>${data.phone || "(000) 000-0000"}</p>
-        <p>${data.address || "Address"}</p>
+        <h3>${data.name || ""}</h3>
+        <p>${data.email || ""}</p>
+        <p>${data.phone || ""}</p>
+        <p>${data.address || ""}</p>
         <p>${data.summary || ""}</p>
     `
 
@@ -40,7 +54,7 @@ export function updatePreview(data) {
 
     // Verificar si hay experiencia para mostrar
     if (data.experience.length > 0 && data.experience.some(exp => exp.jobTitle || exp.company || exp.dates || exp.description)) {
-        previewExperience.innerHTML = "<h3>Experience</h3>"
+        previewExperience.innerHTML = "<h3 class='experience-preview'>Experience</h3>"
 
         const experienceList = document.createElement("ul")
         experienceList.classList.add("experience-list")
@@ -67,7 +81,7 @@ export function updatePreview(data) {
 
     // Verificar si hay educación para mostrar
     if (data.education.length > 0 && data.education.some(edu => edu.degree || edu.institution || edu.dates)) {
-        previewEducation.innerHTML = "<h3>Education</h3>"
+        previewEducation.innerHTML = "<h3 class='education-preview'>Education</h3>"
 
         const educationList = document.createElement("ul")
         educationList.classList.add("education-list")

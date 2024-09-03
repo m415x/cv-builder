@@ -1,5 +1,4 @@
 import { updatePreview } from './main.js'
-import { translatePage } from './translations.js'
 
 const $ = el => document.querySelector(el)
 const $$ = el => document.querySelectorAll(el)
@@ -78,8 +77,7 @@ function areExperienceFieldsComplete() {
     return Array.from(experienceItems).every(item => {
         return item.querySelector('input[name="job-title[]"]').value &&
             item.querySelector('input[name="company[]"]').value &&
-            item.querySelector('input[name="job-dates[]"]').value &&
-            item.querySelector('textarea[name="job-description[]"]').value
+            item.querySelector('input[name="job-dates[]"]').value
     })
 }
 
@@ -95,7 +93,7 @@ export function addExperienceField() {
     const newExperience = document.createElement('div')
     newExperience.classList.add("experience-item")
     newExperience.innerHTML = `
-        <h3>Experience ${experienceCount}</h3>
+        <h3><span class="experience-subtitle">Experience</span> ${experienceCount}</h3>
         <label for="job-title[]"><span>Job Title</span>:
             <input type="text" name="job-title[]" required>
         </label>
@@ -113,9 +111,6 @@ export function addExperienceField() {
         </label>
     `
     experienceSection.appendChild(newExperience)
-
-    //TODO Traducir contenido
-    //translatePage() //! No funciona
 }
 
 // Verificar si los campos de educación están completos
@@ -140,7 +135,7 @@ export function addEducationField() {
     const newEducation = document.createElement('div')
     newEducation.classList.add("education-item")
     newEducation.innerHTML = `
-        <h3>Education ${educationCount}</h3>
+        <h3><span class="education-subtitle">Education</span> ${educationCount}</h3>
         <label for="degree[]"><span>Degree</span>:
             <input type="text" name="degree[]" required>
         </label>

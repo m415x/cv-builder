@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 
     <head>
         <meta charset="UTF-8">
@@ -19,11 +19,13 @@
 
         <meta name="robots" content="index, follow">
         <meta name="theme-color" content="#0fe">
+        <meta name="google" content="notranslate" />
 
         <link rel="icon" type="image/jpg" href="">
 
         <!-- <link rel="stylesheet" href="css/reset.css"> -->
         <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/harvard-theme.css">
     </head>
 
     <body>
@@ -114,7 +116,7 @@
                         <button type="button" id="add-education">Add Education</button>
                     </section>
 
-                    <section hidden>
+                    <section>
                         <h2 class="customizationTitle">Customization</h2>
 
                         <label for="theme-choice"><span></span>:
@@ -137,17 +139,28 @@
                     <h2 class="previewTitle">CV Preview</h2>
                 </header>
 
-                <section id="cv-preview">
-                    <!-- CV preview will be generated here -->
-                </section>
+                <div class="language-selector">
+                    <select id="languageSelect" aria-label="Choose Language">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="pt">Português</option>
+                    </select>
+                </div>
 
-                <section id="preview-experience">
-                    <!-- Experience preview will be generated here -->
-                </section>
+                <article class="cv-preview-container">
+                    <section id="cv-preview">
+                        <!-- CV preview will be generated here -->
+                    </section>
 
-                <section id="preview-education">
-                    <!-- Education preview will be generated here -->
-                </section>
+                    <section id="preview-experience">
+                        <!-- Experience preview will be generated here -->
+                    </section>
+
+                    <section id="preview-education">
+                        <!-- Education preview will be generated here -->
+                    </section>
+                </article>
 
                 <button id="export-pdf" hidden>Export to PDF</button>
             </main>

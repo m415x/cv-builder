@@ -1,5 +1,3 @@
-import { updatePreview } from './main.js'
-
 const $ = el => document.querySelector(el)
 const $$ = el => document.querySelectorAll(el)
 
@@ -21,25 +19,13 @@ export function captureFormData() {
             input.name.includes("job-description[]") ||
             input.name.includes("degree[]") ||
             input.name.includes("institution[]") ||
-            input.name.includes("edu-dates[]")
+            input.name.includes("edu-dates[]") ||
+            input.type === "file"
         ) {
             return // Saltar estos campos
         }
 
-        if (input.type === "file" && input.files.length > 0) {
-            // Si es un input de tipo "file", almacenar el archivo como un objeto URL
-            const file = input.files[0]
-            const reader = new FileReader()
-
-            reader.onload = function (event) {
-                formData[input.name] = event.target.result // Almacenar la URL de la imagen
-                updatePreview(formData) // Actualizar la vista previa con la imagen cargada
-            }
-
-            reader.readAsDataURL(file) // Leer el archivo como una URL de datos
-        } else {
-            formData[input.name] = input.value
-        }
+        formData[input.name] = input.value
     })
 
     // Capturar datos de experiencia
@@ -95,15 +81,15 @@ export function addExperienceField() {
     newExperience.innerHTML = `
         <h3><span class="experience-subtitle">Experience</span> ${experienceCount}</h3>
         <label for="job-title[]"><span>Job Title</span>:
-            <input type="text" name="job-title[]" required>
+            <input type="text" name="job-title[]">
         </label>
 
         <label for="company[]"><span>Company</span>:
-            <input type="text" name="company[]" required>
+            <input type="text" name="company[]">
         </label>
 
         <label for="job-dates[]"><span>Dates</span>:
-            <input type="text" name="job-dates[]" required>
+            <input type="text" name="job-dates[]">
         </label>
 
         <label for="job-description[]"><span>Description</span>:
@@ -137,15 +123,15 @@ export function addEducationField() {
     newEducation.innerHTML = `
         <h3><span class="education-subtitle">Education</span> ${educationCount}</h3>
         <label for="degree[]"><span>Degree</span>:
-            <input type="text" name="degree[]" required>
+            <input type="text" name="degree[]">
         </label>
 
         <label for="institution[]"><span>Institution</span>:
-            <input type="text" name="institution[]" required>
+            <input type="text" name="institution[]">
         </label>
 
         <label for="edu-dates[]"><span>Dates</span>:
-            <input type="text" name="edu-dates[]" required>
+            <input type="text" name="edu-dates[]">
         </label>
     `
     educationSection.appendChild(newEducation)

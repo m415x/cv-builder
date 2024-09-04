@@ -3,7 +3,6 @@ const $$ = el => document.querySelectorAll(el)
 
 const translations = {
     en: {
-        title: "CV Builder",
         personalInfo: "Personal Information",
         name: "Name",
         email: "Email",
@@ -27,7 +26,6 @@ const translations = {
         previewTitle: "CV Preview",
     },
     es: {
-        title: "Creador de CV",
         personalInfo: "Información Personal",
         name: "Nombre",
         email: "Correo Electrónico",
@@ -51,7 +49,6 @@ const translations = {
         previewTitle: "Vista Previa del CV",
     },
     fr: {
-        title: "Créateur de CV",
         personalInfo: "Informations Personnelles",
         name: "Nom",
         email: "Email",
@@ -75,7 +72,6 @@ const translations = {
         previewTitle: "Aperçu du CV"
     },
     pt: {
-        title: "Criador de CV",
         personalInfo: "Informações Pessoais",
         name: "Nome",
         email: "E-mail",
@@ -105,7 +101,6 @@ export function translatePage(selectedLang) {
 
     const texts = translations[lang] || translations["en"] // Fallback al inglés si el idioma no está soportado
 
-    $("h1").textContent = texts.title
     $('h2.personalInformation-title').textContent = texts.personalInfo
     $('label[for="name"] span').textContent = texts.name
     $('label[for="email"] span').textContent = texts.email

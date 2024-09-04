@@ -1,16 +1,20 @@
 import { initializeFormHandlers, captureFormData } from './formHandler.js'
 import { translatePage } from './translations.js'
 import { saveFormData, restoreFormData } from './storage.js'
+import { initializeImageCropper } from './imageHandler.js'
 
 const $ = el => document.querySelector(el)
-const $$ = el => document.querySelectorAll(el)
 
 document.addEventListener("DOMContentLoaded", () => {
     // Inicializa los manejadores de eventos del formulario
     initializeFormHandlers()
 
+    // Inicializa el cropper cuando se cargue la página
+    initializeImageCropper()
+
     // Restaurar los datos cuando la página se carga
     window.addEventListener('load', restoreFormData)
+    // restoreFormData()
 
     const languageSelect = $("#languageSelect")
     // Escuchar cambios en el select de idioma
@@ -27,12 +31,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Actualizar los datos del formulario cuando el usuario interactúa con el formulario
     $("#cv-form").addEventListener("input", () => {
         const data = captureFormData()
-        updatePreview(data)
+        updatePreview(data, localStorage.getItem('profileImage'))
         saveFormData()
     })
 })
 
-export function updatePreview(data) {
+export function updatePreview(data, dataURL) {
     // Aquí se utilizarán los datos capturados para actualizar la vista previa del CV
     const preview = $("#cv-preview")
     const previewExperience = $("#preview-experience")
@@ -40,12 +44,18 @@ export function updatePreview(data) {
 
     // Generar la vista previa del CV incluyendo la imagen si está disponible
     preview.innerHTML = `
-        ${data.picture ? `<img src="${data.picture}" alt="Profile Photo" class="profile-photo">` : ''}
-        <h3>${data.name || ""}</h3>
-        <p>${data.email || ""}</p>
-        <p>${data.phone || ""}</p>
-        <p>${data.address || ""}</p>
+    <div class="profile-container">
+        ${dataURL ? `<img src="${dataURL}" alt="Profile Photo" class="profile-photo">` : ''}
+        <div class="profile-info">
+            <h3>${data.name || ""}</h3>
+            <p>${data.email || ""}</p>
+            <p>${data.phone || ""}</p>
+            <p>${data.address || ""}</p>
+        </div>
+    </div>
+    <div class="summary-container">
         <p>${data.summary || ""}</p>
+    </div>
     `
 
     // Limpiar el contenido previo de la experiencia y la educación
@@ -67,7 +77,7 @@ export function updatePreview(data) {
                 // Crear la estructura de cada experiencia en la lista
                 experienceItem.innerHTML = `
                     <h4>${experience.jobTitle || ''}</h4>
-                    <p><strong>${experience.company || ''}</strong> ${experience.dates ? '-' : ''} ${experience.dates || ''}</p>
+                    <p>${experience.dates || ''} ${experience.dates ? '|' : ''} <strong>${experience.company || ''}</strong></p>
                     <p>${experience.description || ''}</p>
                 `
 
@@ -94,7 +104,7 @@ export function updatePreview(data) {
                 // Crear la estructura de cada educación en la lista
                 educationItem.innerHTML = `
                     <h4>${education.degree || ''}</h4>
-                    <p><strong>${education.institution || ''}</strong> ${education.dates ? '-' : ''} ${education.dates || ''}</p>
+                    <p>${education.dates || ''} ${education.dates ? '|' : ''} <strong>${education.institution || ''}</strong></p>
                 `
 
                 educationList.appendChild(educationItem)

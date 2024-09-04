@@ -3,11 +3,37 @@
     margin-bottom: 20px;
 }
 
+/* Contenedor para la imagen del perfil y el nombre */
+#cv-preview .profile-container {
+    display: flex;
+    align-items: center;
+    /* Alinea verticalmente la imagen y el texto */
+    margin-bottom: 20px;
+    /* Espacio debajo del contenedor */
+}
+
+/* Imagen del perfil */
+#cv-preview .profile-photo {
+    border-radius: 50%;
+    width: 150px;
+    /* Tamaño de la imagen del perfil */
+    height: 150px;
+    /* Tamaño de la imagen del perfil */
+    margin-right: 50px;
+    /* Espacio entre la imagen y el texto */
+}
+
+/* Nombre del perfil */
+#cv-preview .profile-info {
+    flex: 1;
+    /* Ocupa el espacio restante */
+}
+
 #cv-preview h3 {
     font-size: 2em;
     color: #003d66;
-    text-align: center;
-    margin-bottom: 10px;
+    margin: 0;
+    /* Elimina el margen por defecto */
 }
 
 /* Estilos para la sección de experiencia */
@@ -39,13 +65,15 @@
 /* Estilos opcionales para elementos dentro de las secciones */
 #preview-experience .experience-list-item,
 #preview-education .education-list-item {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    /* list-style: none; */
 }
 
 #preview-experience .experience-list-item h4,
 #preview-education .education-list-item h4 {
     font-size: 1.2em;
     color: #003d66;
+    margin-bottom: 12px;
 }
 
 #preview-experience .experience-list-item p,

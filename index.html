@@ -6,10 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="same">
 
-        <title>CV Builder</title>
+        <title>Express CV</title>
 
         <!-- OPEN GRAPH -->
-        <meta property="og:title" content="CV Builder">
+        <meta property="og:title" content="Express CV">
         <meta property="og:description" content="same">
         <meta property="og:image" content="">
         <meta property="og:image:alt" content="">
@@ -21,18 +21,19 @@
         <meta name="theme-color" content="#0fe">
         <meta name="google" content="notranslate" />
 
-        <link rel="icon" type="image/jpg" href="">
+        <link rel="icon" type="image/jpg" href="assets/images/icon.jpeg">
 
         <!-- <link rel="stylesheet" href="css/reset.css"> -->
         <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet" href="css/harvard-theme.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css" rel="stylesheet">
     </head>
 
     <body>
         <div class="container">
             <aside class="sidebar">
                 <header>
-                    <h1>CV Builder</h1>
+                    <h1>Express CV</h1>
                 </header>
 
                 <form id="cv-form">
@@ -56,15 +57,21 @@
                         </label>
 
                         <label for="picture"><span></span>:
-                            <input type="file" name="picture" accept="image/*">
+                            <input type="file" name="picture" id="upload-image" accept="image/*">
                         </label>
+
+                        <div id="image-container" style="display: none;">
+                            <img id="image-preview" alt="Image preview">
+                        </div>
+                        <button id="save-image" style="display: none;">Save Image</button>
+                        <button id="cancel-image" style="display: none;">Cancel</button>
                     </section>
 
                     <section>
                         <h2 class="professionalSummary-title">Professional Summary</h2>
 
                         <label for="summary"><span></span>:
-                            <textarea name="summary" rows="4" required></textarea>
+                            <textarea name="summary" rows="4"></textarea>
                         </label>
                     </section>
 
@@ -74,15 +81,15 @@
                         <div id="experience-section">
                             <div class="experience-item">
                                 <label for="job-title[]"><span></span>:
-                                    <input type="text" name="job-title[]" required>
+                                    <input type="text" name="job-title[]">
                                 </label>
 
                                 <label for="company[]"><span></span>:
-                                    <input type="text" name="company[]" required>
+                                    <input type="text" name="company[]">
                                 </label>
 
                                 <label for="job-dates[]"><span></span>:
-                                    <input type="text" name="job-dates[]" required>
+                                    <input type="text" name="job-dates[]">
                                 </label>
 
                                 <label for="job-description[]"><span></span>:
@@ -100,15 +107,15 @@
                         <div id="education-section">
                             <div class="education-item">
                                 <label for="degree[]"><span></span>:
-                                    <input type="text" name="degree[]" required>
+                                    <input type="text" name="degree[]">
                                 </label>
 
                                 <label for="institution[]"><span></span>:
-                                    <input type="text" name="institution[]" required>
+                                    <input type="text" name="institution[]">
                                 </label>
 
                                 <label for="edu-dates[]"><span></span>:
-                                    <input type="text" name="edu-dates[]" required>
+                                    <input type="text" name="edu-dates[]">
                                 </label>
                             </div>
                         </div>
@@ -116,7 +123,7 @@
                         <button type="button" id="add-education">Add Education</button>
                     </section>
 
-                    <section>
+                    <section hidden>
                         <h2 class="customizationTitle">Customization</h2>
 
                         <label for="theme-choice"><span></span>:
@@ -166,8 +173,10 @@
             </main>
         </div>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
         <script src="js/main.js" type="module"></script>
         <script src="js/formHandler.js" type="module"></script>
+        <script src="js/imageHandler.js" type="module"></script>
         <!-- <script src="js/pdfExporter.js"></script> -->
     </body>
 

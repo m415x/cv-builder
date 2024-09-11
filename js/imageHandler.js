@@ -5,9 +5,7 @@ let cropper
 export function initializeImageCropper() {
     $('#upload-image').addEventListener('change', function (e) {
         // Mostrar el contenedor de la imagen cuando se selecciona una imagen
-        $('#image-container').style.display = 'block'
-        $('#save-image').style.display = 'block'
-        $('#cancel-image').style.display = 'block'
+        $('#image-modal').style.display = 'flex'
 
         const file = e.target.files[0]
         const reader = new FileReader()
@@ -47,6 +45,8 @@ export function initializeImageCropper() {
     })
 
     $('#cancel-image').addEventListener('click', function () {
+        $('#image-modal').style.display = 'none'
+
         if (cropper) {
             // Destruir el cropper
             cropper.destroy()
@@ -62,9 +62,8 @@ export function initializeImageCropper() {
 }
 
 export function updatePicturePreview(dataUrl) {
-    // $('#image-container').style.display = 'none'
-
     const picturePreview = $('img.profile-photo')
+
     if (picturePreview) {
         picturePreview.src = dataUrl
     }

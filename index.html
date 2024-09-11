@@ -40,37 +40,49 @@
                     <section>
                         <h2 class="personalInformation-title">Personal Information</h2>
 
-                        <label for="name"><span></span>:
-                            <input type="text" name="name" required>
+                        <label for="name">
+                            <span>Name</span>:
+                            <input type="text" name="name">
                         </label>
 
-                        <label for="email"><span></span>:
-                            <input type="email" name="email" required>
+                        <label for="email">
+                            <span>Email</span>:
+                            <input type="email" name="email">
                         </label>
 
-                        <label for="phone"><span></span>:
-                            <input type="tel" name="phone" required>
+                        <label for="phone">
+                            <span>Phone</span>:
+                            <input type="tel" name="phone">
                         </label>
 
-                        <label for="address"><span></span>:
-                            <input type="text" name="address" required>
+                        <label for="address">
+                            <span>Address</span>:
+                            <input type="text" name="address">
                         </label>
 
-                        <label for="picture"><span></span>:
+                        <!-- <label for="linkedin"><span>LinkedIn</span>:
+                            <input type="text" name="linkedin">
+                        </label> -->
+
+                        <label for="picture">
+                            <span>Profile picture</span>:
                             <input type="file" name="picture" id="upload-image" accept="image/*">
                         </label>
 
-                        <div id="image-container" style="display: none;">
-                            <img id="image-preview" alt="Image preview">
+                        <div id="image-modal" style="display: none;">
+                            <div id="image-container">
+                                <img id="image-preview" alt="Image preview">
+
+                                <button id="save-image" class="button-cropper">Save image</button>
+                                <button id="cancel-image" class="button-cropper">Cancel</button>
+                            </div>
                         </div>
-                        <button id="save-image" style="display: none;">Save Image</button>
-                        <button id="cancel-image" style="display: none;">Cancel</button>
                     </section>
 
                     <section>
                         <h2 class="professionalSummary-title">Professional Summary</h2>
 
-                        <label for="summary"><span></span>:
+                        <label for="summary"><span>Summary</span>:
                             <textarea name="summary" rows="4"></textarea>
                         </label>
                     </section>
@@ -80,25 +92,41 @@
 
                         <div id="experience-section">
                             <div class="experience-item">
-                                <label for="job-title[]"><span></span>:
+                                <label for="job-title[]">
+                                    <span>Job title</span>:
                                     <input type="text" name="job-title[]">
                                 </label>
 
-                                <label for="company[]"><span></span>:
+                                <label for="company[]">
+                                    <span>Company</span>:
                                     <input type="text" name="company[]">
                                 </label>
 
-                                <label for="job-dates[]"><span></span>:
-                                    <input type="text" name="job-dates[]">
-                                </label>
+                                <div class="inputs-date">
+                                    <label for="job-start-date[]" class="inline-label">
+                                        <span>Start date</span>:
+                                        <input type="month" name="job-start-date[]" class="inline-input">
+                                    </label>
 
-                                <label for="job-description[]"><span></span>:
-                                    <textarea name="job-description[]" rows="2"></textarea>
+                                    <label for="job-end-date[]" class="inline-label">
+                                        <span>End date</span>:
+                                        <input type="month" name="job-end-date[]" class="inline-input">
+                                    </label>
+
+                                    <label for="current-job[]">
+                                        <input type="checkbox" name="current-job[]">
+                                        <span>Current job</span>
+                                    </label>
+                                </div>
+
+                                <label for="job-description[]">
+                                    <span>Description</span>:
+                                    <textarea name="job-description[]" rows="4"></textarea>
                                 </label>
                             </div>
                         </div>
 
-                        <button type="button" id="add-experience">Add Experience</button>
+                        <button type="button" id="add-experience">Add experience</button>
                     </section>
 
                     <section>
@@ -106,27 +134,48 @@
 
                         <div id="education-section">
                             <div class="education-item">
-                                <label for="degree[]"><span></span>:
+                                <label for="degree[]">
+                                    <span>Degree</span>:
                                     <input type="text" name="degree[]">
                                 </label>
 
-                                <label for="institution[]"><span></span>:
+                                <label for="institution[]">
+                                    <span>Institution</span>:
                                     <input type="text" name="institution[]">
                                 </label>
 
-                                <label for="edu-dates[]"><span></span>:
-                                    <input type="text" name="edu-dates[]">
+                                <div class="inputs-date">
+                                    <label for="edu-start-date[]" class="inline-label">
+                                        <span>Start date</span>:
+                                        <input type="month" name="edu-start-date[]" class="inline-input">
+                                    </label>
+
+                                    <label for="edu-end-date[]" class="inline-label">
+                                        <span>End date</span>:
+                                        <input type="month" name="edu-end-date[]" class="inline-input">
+                                    </label>
+
+                                    <label for="current-study[]">
+                                        <input type="checkbox" name="current-study[]">
+                                        <span>Currently studying</span>
+                                    </label>
+                                </div>
+
+                                <label for="edu-description[]">
+                                    <span>Description</span>:
+                                    <textarea name="edu-description[]" rows="4"></textarea>
                                 </label>
                             </div>
                         </div>
 
-                        <button type="button" id="add-education">Add Education</button>
+                        <button type="button" id="add-education">Add education</button>
                     </section>
 
                     <section hidden>
                         <h2 class="customizationTitle">Customization</h2>
 
-                        <label for="theme-choice"><span></span>:
+                        <label for="theme-choice">
+                            <span>Choose a theme</span>:
                             <input list="theme" name="theme-choice">
                         </label>
 
@@ -155,19 +204,21 @@
                     </select>
                 </div>
 
-                <article class="cv-preview-container">
-                    <section id="cv-preview">
-                        <!-- CV preview will be generated here -->
-                    </section>
+                <div class="cv-preview-frame">
+                    <section class="cv-preview-container">
+                        <article id="profile-preview">
+                            <!-- CV preview will be generated here -->
+                        </article>
 
-                    <section id="preview-experience">
-                        <!-- Experience preview will be generated here -->
-                    </section>
+                        <article id="preview-experience">
+                            <!-- Experience preview will be generated here -->
+                        </article>
 
-                    <section id="preview-education">
-                        <!-- Education preview will be generated here -->
+                        <article id="preview-education">
+                            <!-- Education preview will be generated here -->
+                        </article>
                     </section>
-                </article>
+                </div>
 
                 <button id="export-pdf" hidden>Export to PDF</button>
             </main>

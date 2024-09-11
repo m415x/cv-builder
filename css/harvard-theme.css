@@ -1,10 +1,10 @@
 /* Estilos para el preview general del CV */
-#cv-preview {
+#profile-preview {
     margin-bottom: 20px;
 }
 
 /* Contenedor para la imagen del perfil y el nombre */
-#cv-preview .profile-container {
+#profile-preview .profile-container {
     display: flex;
     align-items: center;
     /* Alinea verticalmente la imagen y el texto */
@@ -13,7 +13,7 @@
 }
 
 /* Imagen del perfil */
-#cv-preview .profile-photo {
+#profile-preview .profile-photo {
     border-radius: 50%;
     width: 150px;
     /* Tamaño de la imagen del perfil */
@@ -24,12 +24,12 @@
 }
 
 /* Nombre del perfil */
-#cv-preview .profile-info {
+#profile-preview .profile-info {
     flex: 1;
     /* Ocupa el espacio restante */
 }
 
-#cv-preview h3 {
+#profile-preview h3 {
     font-size: 2em;
     color: #003d66;
     margin: 0;

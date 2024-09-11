@@ -1,3 +1,5 @@
+import { translateMessage } from "./translations.js"
+
 const $ = el => document.querySelector(el)
 const $$ = el => document.querySelectorAll(el)
 
@@ -15,27 +17,39 @@ export function captureFormData() {
         if (
             input.name.includes("job-title[]") ||
             input.name.includes("company[]") ||
-            input.name.includes("job-dates[]") ||
+            input.name.includes("job-start-date[]") ||
+            input.name.includes("job-end-date[]") ||
+            input.name.includes("current-job[]") ||
             input.name.includes("job-description[]") ||
             input.name.includes("degree[]") ||
             input.name.includes("institution[]") ||
-            input.name.includes("edu-dates[]") ||
+            input.name.includes("edu-start-date[]") ||
+            input.name.includes("edu-end-date[]") ||
+            input.name.includes("current-study[]") ||
+            input.name.includes("edu-description[]") ||
             input.type === "file"
         ) {
             return // Saltar estos campos
         }
-
-        formData[input.name] = input.value
+        // Verificar si es checkbox, si es así, usar la propiedad checked
+        if (input.type === "checkbox") {
+            formData[input.name] = input.checked
+        } else {
+            formData[input.name] = input.value
+        }
     })
 
     // Capturar datos de experiencia
     formData.experience = []
     const experienceItems = $$("#experience-section .experience-item")
+
     experienceItems.forEach(item => {
         const experience = {
             jobTitle: item.querySelector('input[name="job-title[]"]').value,
             company: item.querySelector('input[name="company[]"]').value,
-            dates: item.querySelector('input[name="job-dates[]"]').value,
+            startDate: item.querySelector('input[name="job-start-date[]"]').value,
+            endDate: item.querySelector('input[name="job-end-date[]"]').value,
+            currentJob: item.querySelector('input[name="current-job[]"]').checked,
             description: item.querySelector('textarea[name="job-description[]"]').value
         }
         formData.experience.push(experience)
@@ -44,11 +58,15 @@ export function captureFormData() {
     // Capturar datos de educación
     formData.education = []
     const educationItems = $$("#education-section .education-item")
+
     educationItems.forEach(item => {
         const education = {
             degree: item.querySelector('input[name="degree[]"]').value,
             institution: item.querySelector('input[name="institution[]"]').value,
-            dates: item.querySelector('input[name="edu-dates[]"]').value
+            startDate: item.querySelector('input[name="edu-start-date[]"]').value,
+            endDate: item.querySelector('input[name="edu-end-date[]"]').value,
+            currentStudy: item.querySelector('input[name="current-study[]"]').checked,
+            description: item.querySelector('textarea[name="edu-description[]"]').value
         }
         formData.education.push(education)
     })
@@ -63,14 +81,17 @@ function areExperienceFieldsComplete() {
     return Array.from(experienceItems).every(item => {
         return item.querySelector('input[name="job-title[]"]').value &&
             item.querySelector('input[name="company[]"]').value &&
-            item.querySelector('input[name="job-dates[]"]').value
+            item.querySelector('input[name="job-start-date[]"]').value /*&&
+            (item.querySelector('input[name="job-end-date[]"]').value ||
+                item.querySelector('input[name="current-job[]"]').checked)*/
     })
 }
 
 // Función para agregar nuevos campos de experiencia
 export function addExperienceField() {
     if (!areExperienceFieldsComplete()) {
-        alert("Please complete all fields of experience before adding a new one.")
+        const message = translateMessage('experienceIncomplete')
+        alert(message)
         return
     }
 
@@ -79,21 +100,40 @@ export function addExperienceField() {
     const newExperience = document.createElement('div')
     newExperience.classList.add("experience-item")
     newExperience.innerHTML = `
-        <h3><span class="experience-subtitle">Experience</span> ${experienceCount}</h3>
-        <label for="job-title[]"><span>Job Title</span>:
+        <h3>
+            <span class="experience-subtitle">Experience</span> ${experienceCount}
+        </h3>
+        
+        <label for="job-title[]">
+            <span>Job title</span>:
             <input type="text" name="job-title[]">
         </label>
 
-        <label for="company[]"><span>Company</span>:
+        <label for="company[]">
+            <span>Company</span>:
             <input type="text" name="company[]">
         </label>
 
-        <label for="job-dates[]"><span>Dates</span>:
-            <input type="text" name="job-dates[]">
-        </label>
+        <div class="inputs-date">
+            <label for="job-start-date[]" class="inline-label">
+                <span>Start date</span>:
+                <input type="month" name="job-start-date[]" class="inline-input">
+            </label>
 
-        <label for="job-description[]"><span>Description</span>:
-            <textarea name="job-description[]" rows="2"></textarea>
+            <label for="job-end-date[]" class="inline-label">
+                <span>End date</span>:
+                <input type="month" name="job-end-date[]" class="inline-input">
+            </label>
+
+            <label for="current-job[]">
+                <input type="checkbox" name="current-job[]">
+                <span>Current job</span>
+            </label>
+        </div>
+
+        <label for="job-description[]">
+            <span>Description</span>:
+            <textarea name="job-description[]" rows="4"></textarea>
         </label>
     `
     experienceSection.appendChild(newExperience)
@@ -105,14 +145,17 @@ function areEducationFieldsComplete() {
     return Array.from(educationItems).every(item => {
         return item.querySelector('input[name="degree[]"]').value &&
             item.querySelector('input[name="institution[]"]').value &&
-            item.querySelector('input[name="edu-dates[]"]').value
+            item.querySelector('input[name="edu-start-date[]"]').value /*&&
+            (item.querySelector('input[name="edu-end-date[]"]').value ||
+                item.querySelector('input[name="current-study[]"]').checked)*/
     })
 }
 
 // Función para agregar nuevos campos de educación
 export function addEducationField() {
     if (!areEducationFieldsComplete()) {
-        alert("Please complete all education fields before adding a new one.")
+        const message = translateMessage('educationIncomplete')
+        alert(message)
         return
     }
 
@@ -121,17 +164,40 @@ export function addEducationField() {
     const newEducation = document.createElement('div')
     newEducation.classList.add("education-item")
     newEducation.innerHTML = `
-        <h3><span class="education-subtitle">Education</span> ${educationCount}</h3>
-        <label for="degree[]"><span>Degree</span>:
+        <h3>
+            <span class="education-subtitle">Education</span> ${educationCount}
+        </h3>
+        
+        <label for="degree[]">
+            <span>Degree</span>:
             <input type="text" name="degree[]">
         </label>
 
-        <label for="institution[]"><span>Institution</span>:
+        <label for="institution[]">
+            <span>Institution</span>:
             <input type="text" name="institution[]">
         </label>
 
-        <label for="edu-dates[]"><span>Dates</span>:
-            <input type="text" name="edu-dates[]">
+        <div class="inputs-date">
+            <label for="edu-start-date[]" class="inline-label">
+                <span>Start date</span>:
+                <input type="month" name="edu-end-date[]" class="inline-input">
+            </label>
+
+            <label for="edu-end-date[]" class="inline-label">
+                <span>End date</span>:
+                <input type="month" name="edu-start-date[]" class="inline-input">
+            </label>
+
+            <label for="current-study[]">
+                <input type="checkbox" name="current-study[]">
+                <span>Currently studying</span>
+            </label>
+        </div>
+
+        <label for="edu-description[]">
+            <span>Description</span>:
+            <textarea name="edu-description[]" rows="4"></textarea>
         </label>
     `
     educationSection.appendChild(newEducation)

@@ -1,6 +1,26 @@
 :root {
-    --button: #28a745;
-    --button-hover: #218838;
+    --background: #fff;
+    --background-container: #f9f9f9;
+    --border: #ccc;
+    --button-primary: #007BFF;
+    --button-primary-hover: #0069D9;
+    --button-secondary: #6c757d;
+    --button-secondary-hover: #5c636a;
+    --button-success: #28a745;
+    --button-success-hover: #218838;
+    --button-danger: #dc3545;
+    --button-danger-hover: #bb2d3b;
+    --button-warning: #ffc107;
+    --button-warning-hover: #ffca2c;
+    --button-info: #0dcaf0;
+    --button-info-hover: #31d2f2;
+    --button-light: #f8f9fa;
+    --button-light-hover: #d3d4d5;
+    --button-dark: #212529;
+    --button-dark-hover: #424649;
+    --button-link: #6ea8fe;
+    --button-link-hover: #8bb9fe;
+    --title: #003d66;
 }
 
 *,
@@ -13,13 +33,12 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0;
     padding: 0;
-    /* background-color: #0fe; */
 }
 
 h1 {
     font-size: 2.5em;
     margin-block: 0 20px;
-    color: #003d66;
+    color: var(--title);
 }
 
 h2 {
@@ -41,18 +60,24 @@ select,
 button {
     margin: 5px 0 20px 0;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: 5px;
     width: 100%;
 }
 
+input[type="checkbox"] {
+    margin: 0 0 20px 0;
+    padding: 0;
+    width: 10%;
+}
+
 button {
-    background-color: var(--button);
-    color: #fff;
+    background-color: var(--button-success);
+    color: var(--background);
     cursor: pointer;
 
     &:hover {
-        background-color: var(--button-hover);
+        background-color: var(--button-success-hover);
     }
 }
 
@@ -63,20 +88,110 @@ button {
 
 .sidebar {
     width: 30%;
+    max-width: 30%;
+    box-sizing: border-box;
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: var(--background-container);
     overflow-y: auto;
 }
 
-#image-container {
+#image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 400px;
-    margin: auto;
-    overflow: hidden;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
 
-    &img {
-        max-width: 100%;
+#image-container {
+    background-color: var(--background);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#image-preview {
+    max-width: 100%;
+    max-height: 50vh;
+    margin-bottom: 20px;
+}
+
+.button-cropper {
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#save-image {
+    background-color: var(--button-primary);
+
+    &:hover {
+        background-color: var(--button-primary-hover);
     }
+}
+
+#cancel-image {
+    background-color: var(--button-danger);
+
+    &:hover {
+        background-color: var(--button-danger-hover);
+    }
+}
+
+.inputs-date {
+    display: grid;
+    grid-template-columns: 47% 47%;
+    /* Dos columnas de igual tamaño */
+    grid-template-rows: auto auto auto;
+    /* Tres filas de tamaño automático */
+    grid-template-areas:
+        "label-start label-end"
+        "input-start input-end"
+        "checkbox checkbox";
+    column-gap: 6%;
+    /* Espacio entre los elementos de la grilla */
+    max-width: 100%;
+    /* Asegúrate de que no exceda el ancho del contenedor */
+    width: 100%;
+    box-sizing: border-box;
+    /* Incluye padding y border en el ancho total */
+}
+
+.inline-label:nth-of-type(1) {
+    grid-area: label-start;
+}
+
+.inline-label:nth-of-type(2) {
+    grid-area: label-end;
+}
+
+.inline-input:nth-of-type(1) {
+    grid-area: input-start;
+    margin: 5px 0 0 0;
+}
+
+.inline-input:nth-of-type(2) {
+    grid-area: input-end;
+    margin: 5px 0 0 0;
+}
+
+.inputs-date label:nth-of-type(3) {
+    grid-area: checkbox;
+    display: flex;
+    align-items: start;
 }
 
 .preview {
@@ -89,11 +204,9 @@ button {
     height: 150px;
     object-fit: cover;
     border-radius: 50%;
-    /* Hace que la imagen sea circular */
     margin-bottom: 20px;
 }
 
-/* Estilos generales para el contenedor principal */
 .preview {
     font-family: Arial, sans-serif;
     max-width: 100%;
@@ -102,15 +215,13 @@ button {
     box-sizing: border-box;
 }
 
-/* Estilos para el título de la previsualización */
 .previewTitle {
     font-size: 2em;
-    color: #003d66;
+    color: var(--title);
     text-align: center;
     margin-bottom: 20px;
 }
 
-/* Estilos para el selector de idioma */
 .language-selector {
     position: absolute;
     top: 10px;
@@ -125,32 +236,38 @@ button {
     font-size: 16px;
 }
 
-/* Estilos para el contenedor de la previsualización */
-.cv-preview-container {
+.cv-preview-frame {
     max-height: 80vh;
-    /* Ajusta la altura máxima según sea necesario */
     overflow-y: auto;
-    /* Permite el scroll vertical dentro del artículo */
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: var(--background-container);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para el botón de exportación a PDF */
+.cv-preview-container {
+    width: 210mm;
+    height: 297mm;
+    padding: 30px;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    background-color: var(--background);
+    margin: 0 auto;
+}
+
 #export-pdf {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
     font-size: 1em;
-    color: #fff;
-    background-color: #007bff;
+    color: var(--background);
+    background-color: var(--button-primary);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
 
-#export-pdf:hover {
-    background-color: #0056b3;
+    &:hover {
+        background-color: var(--button-primary-hover);
+    }
 }
